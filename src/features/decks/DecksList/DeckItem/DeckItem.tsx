@@ -19,7 +19,7 @@ export const DeckItem = ({ deck }: DeckProps) => {
   const handleDeleteButtonClick = () => {
     setIsLoading(false)
     try {
-       dispatch(deleteDeckTC(deck.id)).then((state) => { setIsLoading(true) })
+       dispatch(deleteDeckTC(deck.id)).finally(() => { setIsLoading(true) })
     } catch (e) {
       console.error(e)
     }
@@ -28,7 +28,7 @@ export const DeckItem = ({ deck }: DeckProps) => {
   const handleEditButtonClick = async () => {
     setIsLoading(false)
     try {
-      dispatch(updateDeckTC({ id: deck.id, name: `${deck.name} updated` })).then((state) => { setIsLoading(true) })
+      dispatch(updateDeckTC({ id: deck.id, name: `${deck.name} updated` })).finally(() => { setIsLoading(true) })
     } catch (e) {
       console.error(e)
     }
