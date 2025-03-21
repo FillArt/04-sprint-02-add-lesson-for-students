@@ -11,31 +11,40 @@ export const fetchDecksTC = () => async (dispatch: Dispatch) => {
     console.log(res.data.items)
     dispatch(isLoadingDeckAC('succeeded'))
   } catch (e) {
-    console.error(e)
     dispatch(isLoadingDeckAC('failed'))
+    const errorMessage = e.code === 'ERR_BAD_REQUEST' ? e.response.data.errorMessages[0].message : e.message
+    console.error(errorMessage)
   }
-
-  const res = await decksAPI.fetchDecks()
-  console.log(res.data.items)
-  // decksAPI.fetchDecks().then((res) => {
-  //   dispatch(setDecksAC(res.data.items))
-  // })
 }
 
 export const addDeckTC = (name: string) => async (dispatch: Dispatch) => {
-  return decksAPI.addDeck(name).then((res) => {
+
+  try {
+    const res = await decksAPI.addDeck(name)
     dispatch(addDeckAC(res.data))
-  })
+  } catch (e) {
+    const errorMessage = e.code === 'ERR_BAD_REQUEST' ? e.response.data.errorMessages[0].message : e.message
+    console.error(errorMessage)
+  }
 }
 
 export const deleteDeckTC = (id: string) => async (dispatch: Dispatch) => {
-  return decksAPI.deleteDeck(id).then((res) => {
+  try {
+    const res = await decksAPI.deleteDeck(id)
     dispatch(deleteDeckAC(res.data.id))
-  })
+  } catch (e) {
+    const errorMessage = e.code === 'ERR_BAD_REQUEST' ? e.response.data.errorMessages[0].message : e.message
+    console.error(errorMessage)
+  }
 }
 
 export const updateDeckTC = (params: UpdateDeckParams) => async (dispatch: Dispatch) => {
-  return decksAPI.updateDeck(params).then((res) => {
+  try {
+    const res = await decksAPI.updateDeck(params)
     dispatch(updateDeckAC(res.data))
-  })
+  } catch (e) {
+    const errorMessage = e.code === 'ERR_BAD_REQUEST' ? e.response.data.errorMessages[0].message : e.message
+    console.error(errorMessage)
+  }
+
 }
