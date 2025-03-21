@@ -18,10 +18,6 @@ const errorHandler = (e: any, dispatch: Dispatch) => {
 
   dispatch(setErrorMessage(errorMessage))
 
-  setTimeout(() => {
-    dispatch(setErrorMessage(''))
-  }, 3000)
-
 }
 
 
