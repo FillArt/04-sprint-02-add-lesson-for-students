@@ -5,11 +5,11 @@ import { LinearLoader } from '../common/components/Loader/LinearLoader.tsx'
 import { useAppSelector } from './store.ts'
 
 export const App = () => {
-  const isLoading = useAppSelector(state => state.decks.isLoading)
+  const status = useAppSelector(state => state.app.status)
 
   return (
     <div>
-      {!isLoading && (<LinearLoader/>)}
+      {status === 'loading' && (<LinearLoader/>)}
 
       <Decks />
       <GlobalError />
