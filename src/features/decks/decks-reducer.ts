@@ -2,6 +2,7 @@ import { Deck } from './decks-api.ts'
 
 const initialState = {
   decks: [] as Deck[],
+  isLoading: false,
   searchParams: {
     name: '',
   },
@@ -31,6 +32,11 @@ export const decksReducer = (state: DecksState = initialState, action: DecksActi
         ...state,
         decks: state.decks.map((deck) => (deck.id === action.updatedDeck.id ? action.updatedDeck : deck)),
       }
+    case 'DECKS/LOADING-DECK':
+      return {
+        ...state,
+        isLoading: action.isLoading,
+      }
     default:
       return state
   }
@@ -41,6 +47,7 @@ type DecksActions =
   | ReturnType<typeof addDeckAC>
   | ReturnType<typeof deleteDeckAC>
   | ReturnType<typeof updateDeckAC>
+  | ReturnType<typeof isLoadingDeckAC>
 
 export const setDecksAC = (decks: Deck[]) => ({
   type: 'DECKS/SET-DECKS' as const,
@@ -59,4 +66,9 @@ export const deleteDeckAC = (id: string) => ({
 export const updateDeckAC = (updatedDeck: Deck) => ({
   type: 'DECKS/UPDATE-DECK' as const,
   updatedDeck,
+})
+
+export const isLoadingDeckAC = (isLoading: boolean) => ({
+  type: 'DECKS/LOADING-DECK' as const,
+  isLoading,
 })
